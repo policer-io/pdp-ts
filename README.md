@@ -34,7 +34,7 @@ const {
 
 ### Prerequisites
 
-- Node >= v16.x is required
+- Node >= v20.x is required
 - policer.io Policy Center instance ([learn more](https://policer.io/#about))
   - self-hosted
   - https://cloud.policer.io (coming soon)
