@@ -1,5 +1,5 @@
 {
-  "name": "@policer/pdp-typescript",
+  "name": "@policer-io/pdp-ts",
   "version": "0.0.0",
   "description": "The Policer PDP SDKs allow to control access within your application based the Policer Access Control Policy.",
   "main": "lib/index.js",
