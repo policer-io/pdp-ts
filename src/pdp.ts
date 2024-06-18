@@ -87,7 +87,14 @@ class PDP<
    * @return {*}
    * @memberof PDP
    */
-  static async create<RoleName extends string = string>(options: Options<RoleName>) {
+  static async create<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Attributes extends Record<string, any> = Record<string, unknown>,
+    RoleName extends string = string,
+    FilterResult = unknown,
+    ProjectionResult = unknown,
+    SetterResult = unknown,
+  >(options: Options<RoleName>) {
     const { applicationId, hostname = DEFAULT_HOSTNAME, logger = DEFAULT_LOGGER(), ssl = DEFAULT_SSL, socket = {}, policy: localPolicy } = options
     const { timeout = DEFAULT_SOCKET_TIMEOUT, disable = DEFAULT_SOCKET_DISABLE } = socket
     logger.debug(undefined, `Creating PDP instance for application ${applicationId}`)
@@ -102,7 +109,7 @@ class PDP<
         })
     if (!policy) throw new Error(`Could not load policy for application ${applicationId}`)
 
-    const instance = new this(policy, options)
+    const instance = new this<Attributes, RoleName, FilterResult, ProjectionResult, SetterResult>(policy, options)
 
     if (!disable) {
       // wait for the socket to establish an initial connection
