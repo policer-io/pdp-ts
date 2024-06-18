@@ -1,4 +1,4 @@
-import PDP from './pdp'
+import PDP from '.'
 import Pino from 'pino'
 
 async function main() {
