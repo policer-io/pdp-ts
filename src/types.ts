@@ -1,10 +1,10 @@
-export interface Policy<RoleName extends string = string> extends TenantDocument, Document {
+export interface Policy<RoleName extends string = string> extends TenantDocument {
   name: string
   roles: Role<RoleName>[]
   options: PolicyOptions
 }
 
-export interface Role<RoleName extends string = string> extends ApplicationDocument, TenantDocument, Document {
+export interface Role<RoleName extends string = string> {
   /**
    * name of the role
    *
@@ -25,8 +25,7 @@ export interface Role<RoleName extends string = string> extends ApplicationDocum
   inherits: ObjectId[]
 }
 
-export interface Permission extends ApplicationDocument, TenantDocument, Document {
-  _id: ObjectId
+export interface Permission {
   name: string
   condition: null | Logic
   filter: null | Logic
@@ -35,7 +34,6 @@ export interface Permission extends ApplicationDocument, TenantDocument, Documen
 }
 
 export interface Logic {
-  _id: ObjectId
   name: string
   rule: JsonLogicRule
   type: 'condition' | 'filter' | 'projection'
@@ -74,17 +72,6 @@ type JsonLogicRule = Record<string, unknown>
 
 interface TenantDocument {
   tenant: ObjectId
-}
-
-interface ApplicationDocument {
-  tenant: ObjectId
-}
-
-interface Document {
-  _id: ObjectId
-  createdAt: Date
-  updatedAt: Date
-  __v: number
 }
 
 /**
