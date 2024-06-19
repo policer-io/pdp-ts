@@ -99,6 +99,26 @@ describe('logic should', () => {
     })
   })
 
+  test('parsejson template string with computed data input as nested array!', () => {
+    const rule = {
+      json: ['{{0.1}}', [{ filter: [{ var: 'items' }, { var: '' }] }]],
+    }
+    const data = {
+      items: [{ some: 'value', more: 'info' }, null, { prop: 23 }],
+    }
+    expect(logic.apply(rule, data)).toEqual({ prop: 23 })
+  })
+
+  test('get lenght of array', () => {
+    const rule = {
+      var: 'items.length',
+    }
+    const data = {
+      items: [{ some: 'value', more: 'info' }, null, { prop: 23 }],
+    }
+    expect(logic.apply(rule, data)).toBe(3)
+  })
+
   test('throw error if variable is undefined', () => {
     const rule = {
       json: '{ "premium": { "$in": [{{first}}, {{second}}, {{first}}] } }',

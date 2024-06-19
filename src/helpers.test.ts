@@ -5,6 +5,16 @@ describe('resolve helper should', () => {
     not: 'nested',
     some: { nested: { object: 'value' } },
     more: [{ vals: ['in', 'array'] }, { vals: ['other', 'list'] }],
+    listed: [
+      [
+        [0, 1],
+        [2, 3],
+      ],
+      [
+        [4, 5],
+        [6, 7],
+      ],
+    ],
   }
 
   test('resolve not nested value', () => {
@@ -17,6 +27,10 @@ describe('resolve helper should', () => {
 
   test('resolve nested array', () => {
     expect(resolve('more.0.vals.1', data)).toBe('array')
+  })
+
+  test('resolve array of arrays', () => {
+    expect(resolve('0.1.0', data.listed)).toBe(2)
   })
 
   test('throw error if data is not an object', () => {
