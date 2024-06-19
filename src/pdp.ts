@@ -182,13 +182,13 @@ class PDP<
         const permissionsResults = permissions.map((permission): CanResult<FilterResult, ProjectionResult, SetterResult> => {
           const result: CanResult<FilterResult, ProjectionResult, SetterResult> = {
             // if condition, evaluate, else allow
-            grant: permission.condition ? logic.apply(permission.condition.rule, attributes) : true,
+            grant: permission.condition ? logic.apply(permission.condition.rule, { ...attributes, operation, roles }) : true,
             // if filter, evalate, else set undefined
-            filter: permission.filter ? logic.apply(permission.filter.rule, attributes) : undefined,
+            filter: permission.filter ? logic.apply(permission.filter.rule, { ...attributes, operation, roles }) : undefined,
             // if projection, evaluate, else set undefined
-            projection: permission.projection ? logic.apply(permission.projection.rule, attributes) : undefined,
+            projection: permission.projection ? logic.apply(permission.projection.rule, { ...attributes, operation, roles }) : undefined,
             // if setter, evaluate, else set undefined
-            setter: permission.setter ? logic.apply(permission.setter.rule, attributes) : undefined,
+            setter: permission.setter ? logic.apply(permission.setter.rule, { ...attributes, operation, roles }) : undefined,
           }
           this.logger.debug({ operation, permission: permission.name, role: role.name, ...result }, `computed can result for permission ${permission.name}`)
           return result
@@ -204,10 +204,12 @@ class PDP<
 
     // evaluate global policy
     const globalResult: CanResult<FilterResult, ProjectionResult, SetterResult> = {
-      grant: this.policy.options.global.condition ? logic.apply(this.policy.options.global.condition.rule, attributes) : true,
-      filter: this.policy.options.global.filter ? logic.apply(this.policy.options.global.filter.rule, attributes) : undefined,
-      projection: this.policy.options.global.projection ? logic.apply(this.policy.options.global.projection.rule, attributes) : undefined,
-      setter: this.policy.options.global.setter ? logic.apply(this.policy.options.global.setter.rule, attributes) : undefined,
+      grant: this.policy.options.global.condition ? logic.apply(this.policy.options.global.condition.rule, { ...attributes, operation, roles }) : true,
+      filter: this.policy.options.global.filter ? logic.apply(this.policy.options.global.filter.rule, { ...attributes, operation, roles }) : undefined,
+      projection: this.policy.options.global.projection
+        ? logic.apply(this.policy.options.global.projection.rule, { ...attributes, operation, roles })
+        : undefined,
+      setter: this.policy.options.global.setter ? logic.apply(this.policy.options.global.setter.rule, { ...attributes, operation, roles }) : undefined,
     }
 
     // merge principal policy result and global policy result into one
