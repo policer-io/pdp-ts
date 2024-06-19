@@ -15,7 +15,7 @@ export interface Role<RoleName extends string = string> {
   /**
    * description of the role
    */
-  description: string
+  description: string | null
 
   permissions: Permission[]
 
@@ -36,7 +36,7 @@ export interface Permission {
 export interface Logic {
   name: string
   rule: JsonLogicRule
-  type: 'condition' | 'filter' | 'projection'
+  type: 'condition' | 'filter' | 'projection' | 'setter'
 }
 
 export interface PolicyOptions {
