@@ -111,7 +111,7 @@ class PDP<
 
     const instance = new this<Attributes, RoleName, FilterResult, ProjectionResult, SetterResult>(policy, options)
 
-    if (!disable) {
+    if (!disable && !localPolicy) {
       // wait for the socket to establish an initial connection
       await new Promise<void>((resolve, reject) => {
         const timer = setTimeout(() => {
