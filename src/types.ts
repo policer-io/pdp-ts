@@ -27,10 +27,10 @@ export interface Role<RoleName extends string = string> {
 
 export interface Permission {
   name: string
-  condition: null | Logic
-  filter: null | Logic
-  projection: null | Logic
-  setter: null | Logic
+  condition?: null | Logic
+  filter?: null | Logic
+  projection?: null | Logic
+  setter?: null | Logic
 }
 
 export interface Logic {
