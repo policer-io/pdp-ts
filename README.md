@@ -2,7 +2,7 @@
 
 # Policy Decision Point — Typescript/Javascript
 
-The [policer.io](https://policer.io) Policy Decision Point (PDP) for typescript and javascript projects.
+The [policer.io](https://policer.io) Policy Decision Point (PDP) client library for typescript and javascript projects.
 
 [![Pipeline](https://github.com/policer-io/pdp-ts/actions/workflows/test.yml/badge.svg)](https://github.com/policer-io/pdp-ts/actions/workflows/test.yml)
 [![embrio.tech](https://img.shields.io/static/v1?label=🚀+by&message=EMBRIO.tech&color=24ae5f)](https://embrio.tech)
