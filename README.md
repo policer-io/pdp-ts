@@ -8,6 +8,12 @@ The [policer.io](https://policer.io) Policy Decision Point (PDP) client library 
 [![npm](https://img.shields.io/static/v1?label=shipped+with&message=npm&color=cd0000)](https://www.npmjs.com/package/@policer-io/pdp-ts)
 [![embrio.tech](https://img.shields.io/static/v1?label=🚀+by&message=EMBRIO.tech&color=24ae5f)](https://embrio.tech)
 
+## :star: Give us a Star!
+
+### Support the project by giving it a GitHub Star!
+
+![GitHub Repo stars](https://img.shields.io/github/stars/policer-io/pdp-ts?label=GitHub%20%E2%AD%90%EF%B8%8F)
+
 ## :gem: Why `@policer-io/pdp-ts`?
 
 Advanced access control with one line of code with policy as data:
