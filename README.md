@@ -1,4 +1,6 @@
-# [![logo-light-long-2](https://github.com/policer-io/.github/assets/16650977/c39ad4a3-7a5c-40b6-9a69-5be3a3c50255)](https://policer.io)<br/>Policy Decision Point — Typescript/Javascript
+[![logo-light-long-2](https://github.com/policer-io/.github/assets/16650977/c39ad4a3-7a5c-40b6-9a69-5be3a3c50255)](https://policer.io)
+
+# Policy Decision Point — Typescript/Javascript
 
 The [policer.io](https://policer.io) Policy Decision Point (PDP) client library for typescript and javascript projects.
 
@@ -10,7 +12,7 @@ The [policer.io](https://policer.io) Policy Decision Point (PDP) client library 
 
 ### Support the project by giving it a GitHub Star!
 
-![GitHub Repo stars](https://img.shields.io/github/stars/policer-io/pdp-ts?label=GitHub%20%E2%AD%90%EF%B8%8F)
+[![GitHub Repo stars](https://img.shields.io/github/stars/policer-io/pdp-ts?label=GitHub%20%E2%AD%90%EF%B8%8F)](https://github.com/policer-io/pdp-ts)
 
 ## :gem: Why `@policer-io/pdp-ts`?
 
