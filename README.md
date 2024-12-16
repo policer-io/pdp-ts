@@ -121,7 +121,7 @@ if (grant) {
 
 ## :bug: Bugs
 
-Please report bugs by creating a [bug issue](https://github.com/embrio-tech/easy-rbac-plus/issues/new?assignees=&labels=Bug&template=bug.md&title=).
+Please report bugs by creating a [bug issue](https://github.com/policer-io/pdp-ts/issues/new?assignees=&labels=Bug&template=bug.md&title=).
 
 ## :construction_worker_man: Contribute
 
