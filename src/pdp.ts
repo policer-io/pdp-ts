@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import type { CanResult, MergeType, Payload, Policy } from './types'
 import axios from 'axios'
 import { io } from 'socket.io-client'
