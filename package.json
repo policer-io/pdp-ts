@@ -1,6 +1,6 @@
 {
   "name": "@policer-io/pdp-ts",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "The Policer PDP SDKs allow to control access within your application based the Policer Access Control Policy.",
   "main": "lib/index.js",
   "repository": "git@github.com:policer-io/pdp-ts.git",
