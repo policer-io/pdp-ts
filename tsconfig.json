@@ -1,9 +1,12 @@
 {
-  "extends": "@tsconfig/node20/tsconfig",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "_version": "22.0.0",
+  "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "allowUnusedLabels": false,
     "allowUnreachableCode": true,
-    "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
@@ -17,12 +20,9 @@
     "skipLibCheck": true,
     "target": "es2022",
     "outDir": "./lib",
-    "resolveJsonModule": true,
     "declaration": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"],
-  "ts-node": {
-    "files": true
-  }
+  "ts-node": { "files": true }
 }

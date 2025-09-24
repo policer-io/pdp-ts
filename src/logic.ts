@@ -7,7 +7,7 @@ const json: Parameters<typeof logic.add_operation>[1] = function (this: unknown,
   if (typeof this !== 'object') throw new TypeError('this is not of type object')
 
   // replace variables in string with values {{myVariable}}
-  const data = _data ? { ..._data } : ({ ...this } as Record<string, unknown>)
+  const data = _data && typeof _data === 'object' ? { ..._data } : ({ ...this } as Record<string, unknown>)
   const replaced = [...template.matchAll(/{{(\w+(\.\w+)*)}}/g)].reduce((result, match) => {
     const [matched, group] = match
     if (!group) throw new Error('group is undefined')
