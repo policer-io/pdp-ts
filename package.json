@@ -65,7 +65,7 @@
     ]
   },
   "dependencies": {
-    "json-logic-js": "^2.0.2",
+    "json-logic-js": "^2.0.5",
     "pino": "^9.0.0",
     "socket.io-client": "^4.8.1"
   },
