@@ -1,4 +1,14 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-yarn lint-staged
+# tell nvm to use the project-specific version
+nvm use
+
+echo "Node version from hook:"
+node --version
+echo "pnpm version from hook:"
+pnpm --version
+
+echo "Running lint-staged..."
+pnpm exec lint-staged

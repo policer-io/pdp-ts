@@ -23,9 +23,9 @@
     "test:watch": "jest --watchAll",
     "lint": "eslint --max-warnings 0 'src/**/*.{ts,js}'",
     "lint:fix": "eslint --fix --max-warnings 0 'src/**/*.{ts,js}'",
-    "prepare": "husky install && yarn build",
-    "preversion": "yarn lint && yarn test",
-    "postversion": "git push --tags && yarn publish . --new-version $npm_package_version --access public && git push && echo \"Successfully released version $npm_package_version!\""
+    "prepare": "husky install && pnpm build",
+    "preversion": "pnpm lint && pnpm test",
+    "postversion": "git push --tags && pnpm publish . --new-version $npm_package_version --access public && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "exports": {
     ".": {

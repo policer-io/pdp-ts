@@ -50,7 +50,11 @@ const {
 
 ### Install
 
-Use yarn command
+Use pnpm command
+
+    pnpm add @policer-io/pdp-ts
+
+or yarn command
 
     yarn add @policer-io/pdp-ts
 
@@ -139,19 +143,19 @@ Either way, [let's talk](https://policer.io/contact/)!
 
 - [Node Version Manager](https://github.com/nvm-sh/nvm)
   - node: version specified in [`.nvmrc`](/.nvmrc)
-- [Yarn](https://classic.yarnpkg.com/en/)
+- [pnpm](https://pnpm.io/)
 
 #### Install
 
-    yarn install
+    pnpm install
 
 #### Test
 
-    yarn test
+    pnpm test
 
 or
 
-    yarn test:watch
+    pnpm test:watch
 
 #### Commit
 
