@@ -1,3 +1,4 @@
 export * from './pdp'
+import { PDP } from './pdp'
 export * from './types'
-export { default as default } from './pdp'
+export default PDP

@@ -1,6 +1,6 @@
 import { type Server as HttpServer, createServer } from 'node:http'
 import { Server as SocketServer } from 'socket.io'
-import PDP from './pdp'
+import { PDP } from './pdp'
 import Pino from 'pino'
 import { AddressInfo } from 'node:net'
 
@@ -414,11 +414,14 @@ const policy = {
   __v: 2,
 }
 
-jest.mock('axios', () => {
-  return jest.fn(async () => ({
-    data: { data: policy },
-  }))
-})
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    ok: true,
+    status: 200,
+    statusText: 'OK',
+    json: async () => ({ data: policy }),
+  })
+) as jest.Mock
 
 describe('pdp socket connection should', () => {
   let port: number

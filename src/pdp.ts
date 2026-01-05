@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import type { CanResult, MergeType, Payload, Policy } from './types'
-import axios from 'axios'
 import { io } from 'socket.io-client'
 import DEFAULT_LOGGER from 'pino'
 import logic from './logic'
@@ -16,7 +15,7 @@ import {
   DEFAULT_SSL,
 } from './defaults'
 
-class PDP<
+export class PDP<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Attributes extends Record<string, any> = Record<string, unknown>,
   RoleName extends string = string,
@@ -99,15 +98,24 @@ class PDP<
     const { applicationId, hostname = DEFAULT_HOSTNAME, logger = DEFAULT_LOGGER(), ssl = DEFAULT_SSL, socket = {}, policy: localPolicy } = options
     const { timeout = DEFAULT_SOCKET_TIMEOUT, disable = DEFAULT_SOCKET_DISABLE } = socket
     logger.debug(undefined, `Creating PDP instance for application ${applicationId}`)
-    const {
-      data: { data: policy },
-    } = localPolicy
-      ? { data: { data: localPolicy } }
-      : await axios<Payload<Policy<RoleName>>>({
-          method: 'GET',
-          baseURL: `http${ssl ? 's' : ''}://${hostname}/api`,
-          url: `/applications/${applicationId}/policy`,
-        })
+
+    let policy: Policy<RoleName> | undefined
+
+    if (localPolicy) {
+      policy = localPolicy
+    } else {
+      const response = await fetch(`http${ssl ? 's' : ''}://${hostname}/api/applications/${applicationId}/policy`, {
+        method: 'GET',
+      })
+
+      if (!response.ok) {
+        throw new Error(`Failed to load policy: ${response.statusText} (${response.status})`)
+      }
+
+      const payload = (await response.json()) as Payload<Policy<RoleName>>
+      policy = payload.data
+    }
+
     if (!policy) throw new Error(`Could not load policy for application ${applicationId}`)
 
     const instance = new this<Attributes, RoleName, FilterResult, ProjectionResult, SetterResult>(policy, options)
@@ -279,19 +287,33 @@ class PDP<
     this.logger.debug(undefined, `Received policy update event for application ${applicationId}`)
     this.controller?.abort()
     this.controller = new AbortController()
-    const {
-      data: { data: policy },
-    } = await axios<Payload<Policy<RoleName>>>({
-      method: 'GET',
-      baseURL: `http${ssl ? 's' : ''}://${hostname}/api`,
-      url: `/applications/${applicationId}/policy`,
-      signal: this.controller.signal,
-    })
-    if (!policy) throw new Error(`Could not load policy for application ${applicationId}`)
 
-    this.policy = policy
-    this.options.onUpdated && this.options.onUpdated()
-    this.logger.info(undefined, `Policy updated for application ${applicationId}`)
+    try {
+      const response = await fetch(`http${ssl ? 's' : ''}://${hostname}/api/applications/${applicationId}/policy`, {
+        method: 'GET',
+        signal: this.controller.signal,
+      })
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch policy update: ${response.statusText} (${response.status})`)
+      }
+
+      const payload = (await response.json()) as Payload<Policy<RoleName>>
+      const policy = payload.data
+
+      if (!policy) throw new Error(`Could not load policy for application ${applicationId}`)
+
+      this.policy = policy
+      this.options.onUpdated && this.options.onUpdated()
+      this.logger.info(undefined, `Policy updated for application ${applicationId}`)
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        // Fetch aborted, likely due to a new update event coming in
+        return
+      }
+      this.logger.error(error, `Failed to update policy for application ${applicationId}`)
+      throw error
+    }
   }
 
   /**
@@ -303,10 +325,10 @@ class PDP<
     this.logger.info(undefined, `Shutdown PDP instance for application ${this.options.applicationId} gracefully`)
     // close socket connection
     this.socket?.close()
+    // abort pending fetch
+    this.controller?.abort()
   }
 }
-
-export default PDP
 
 type Logger = ReturnType<typeof DEFAULT_LOGGER>
 
