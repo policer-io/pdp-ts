@@ -107,3 +107,5 @@ dist
 lib
 
 .yarnrc*
+
+.npmrc
